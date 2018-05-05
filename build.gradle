@@ -39,7 +39,7 @@ sourceSets {
     }
 }
 
-defaultTasks 'jar'
+defaultTasks 'jar', 'sourcesJar'
 
 jar {
     from sourceSets.main.output
