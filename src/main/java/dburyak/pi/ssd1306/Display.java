@@ -1,6 +1,23 @@
 package dburyak.pi.ssd1306;
 
 
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.NotThreadSafe;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.time.Duration;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import static dburyak.pi.ssd1306.Command.CHARGE_PUMP_DISABLE;
 import static dburyak.pi.ssd1306.Command.CHARGE_PUMP_ENABLE;
 import static dburyak.pi.ssd1306.Command.DISPLAY_OFF;
@@ -48,27 +65,6 @@ import static java.awt.Color.BLACK;
 import static java.awt.Color.WHITE;
 import static java.awt.image.AffineTransformOp.TYPE_BILINEAR;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.time.Duration;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
-
 
 /**
  * Project : pi_java_ssd1306<p>
@@ -110,7 +106,7 @@ public class Display {
      * <p><b>Created on:</b> <i>1:07:38 AM Apr 9, 2017</i>
      */
     @SuppressWarnings("nls")
-    private static final Font FONT_DEFAULT = new Font("Monospaced", Font.PLAIN, 12);
+    public static final Font FONT_DEFAULT = new Font("Monospaced", Font.PLAIN, 12);
 
     /**
      * Default scrolling frequency.
