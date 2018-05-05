@@ -50,6 +50,11 @@ jar {
     }
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 task demoJar(type: Jar, dependsOn: ['classes', 'demoClasses']) {
     group = 'build'
     description = 'Build executable demo jar with all dependencies embedded.'
