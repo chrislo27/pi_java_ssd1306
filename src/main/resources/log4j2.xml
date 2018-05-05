@@ -10,7 +10,7 @@
 		<Logger name="dburyak.pi.ssd1306" level="info">
 			<AppenderRef ref="Console" />
 		</Logger>
-		<Logger name="dburyak.pi.ssd1306.Display" level="trace" />
+		<Logger name="dburyak.pi.ssd1306.Display" level="info" />
 		<Logger name="dburyak.pi.ssd1306.SSD1306_I2C" level="warn" />
 		<Logger name="dburyak.pi.ssd1306.SSD1306_SPI" level="warn" />
 	</Loggers>
