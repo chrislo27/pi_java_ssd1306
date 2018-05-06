@@ -1414,7 +1414,7 @@ public class Display {
         if (overlay != NONE) {
             final int width = rightBottom.x() - leftTop.x();
             final int height = rightBottom.y() - leftTop.y();
-            final BufferedImage scaled = scale(img, width, height);
+            final BufferedImage scaled = img.getWidth() == width && img.getHeight() == height ? img : scale(img, width, height);
             // draw pixel by pixel depending on overlay strategy
             // this may be not the most efficient way to draw image, but flexibility of the overlay strategies is more
             // important
@@ -1425,10 +1425,12 @@ public class Display {
                     // draw only if pixel absolute position is inside the visible area (display pixel matrix)
                     if ((0 <= xAbs && xAbs < width()) && (0 <= yAbs && yAbs < height())) {
                         final PixelState pixel = rgbToPixelState(scaled.getRGB(x, y));
-                        if (pixel == PixelState.ON && (overlay == FULL || overlay == ON_PIXELS)) {
+                        if (overlay == FULL) {
+                            graphics().drawImage(scaled, xAbs, yAbs, null);
+                        } else if (pixel == PixelState.ON && (overlay == ON_PIXELS)) {
                             graphics().setColor(WHITE);
                             graphics().drawLine(xAbs, yAbs, xAbs, yAbs); // draw WHITE point
-                        } else if (pixel == PixelState.OFF && (overlay == FULL || overlay == OFF_PIXELS)) {
+                        } else if (pixel == PixelState.OFF && (overlay == OFF_PIXELS)) {
                             graphics().setColor(BLACK);
                             graphics().drawLine(xAbs, yAbs, xAbs, yAbs); // draw BLACK point
                         }
