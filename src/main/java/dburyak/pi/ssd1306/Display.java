@@ -1425,12 +1425,10 @@ public class Display {
                     // draw only if pixel absolute position is inside the visible area (display pixel matrix)
                     if ((0 <= xAbs && xAbs < width()) && (0 <= yAbs && yAbs < height())) {
                         final PixelState pixel = rgbToPixelState(scaled.getRGB(x, y));
-                        if (overlay == FULL) {
-                            graphics().drawImage(scaled, xAbs, yAbs, null);
-                        } else if (pixel == PixelState.ON && (overlay == ON_PIXELS)) {
+                        if (pixel == PixelState.ON && (overlay == FULL || overlay == ON_PIXELS)) {
                             graphics().setColor(WHITE);
                             graphics().drawLine(xAbs, yAbs, xAbs, yAbs); // draw WHITE point
-                        } else if (pixel == PixelState.OFF && (overlay == OFF_PIXELS)) {
+                        } else if (pixel == PixelState.OFF && (overlay == FULL || overlay == OFF_PIXELS)) {
                             graphics().setColor(BLACK);
                             graphics().drawLine(xAbs, yAbs, xAbs, yAbs); // draw BLACK point
                         }
